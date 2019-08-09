@@ -1,6 +1,7 @@
 let addButton = document.querySelector(".add-todo");
 let addBar = document.querySelector(".todo-input");
 let completeButton = document.querySelector(".mark-todo-complete");
+let deleteButton = document.querySelector(".delete-completed-todos");
 function getCurrentDateAndTime() {
   return new Date().toLocaleString();
 }
@@ -9,7 +10,6 @@ let todos = [
   [`Allow user interaction through the DOM`, false, getCurrentDateAndTime()],
   [`Add dates to todos.`, false, getCurrentDateAndTime()]
 ];
-
 // # Todate
 
 // A todo app challenge.
@@ -137,13 +137,11 @@ function completetodo(index) {
 
 // console.log(array)
 
-
 // completetodo(index)
-
 
 // * Now that we've got an index, we can call our helper functions to mark it complete in the data and style it on the dom! (Again, make sure you're correcting for any off - by - one errors.Lists on the dom are 1 - based counting!)
 function setComplete(event) {
-let selectedLi = event.target.parentNode;
+  let selectedLi = event.target.parentNode;
 
   let liList = todoList.childNodes;
 
@@ -151,11 +149,21 @@ let selectedLi = event.target.parentNode;
 
   let index = array.indexOf(selectedLi);
 
-  completetodo(index)
-  markComplete(index)
+  completetodo(index);
+  markComplete(index);
 }
 
 // * We'll need a helper function for our deletion: one that deletes everything on the list.
+deleteButton.addEventListener("click", deleteCompleted);
+function deleteCompleted() {
+  for (let i = todos.length - 1; i >= 0; i--) {
+    if (todos[i][1] === true) {
+      todos.splice(i, 1);
+    }
+  }
+  clearList();
+  printList();
+}
 
 //   * Now for deleting the completed items.Add an event listener for our deletion handling function.Now write a function that builds new data * without * the completed ones, then uses our helper function to clear the list, and our helper function to print the list again based on our data(which will now * not * have completed items in it).
 
@@ -164,19 +172,3 @@ let selectedLi = event.target.parentNode;
 // ### Stretch Goals:
 
 // Coming soon!
-
-// function addingtolist(task /* true, time*/) {
-//   let i = 0;
-//   while (i > todos.length) {
-//     todos.push(task[i][false][getCurrentDateAndTime]);
-//     i = i + 1;
-//   }
-// }
-
-// function makingTaskhave3items(task /* true, time*/) {
-//   let i = 0;
-//   while (i > task.length) {
-//     task.push[i][false][getCurrentDateAndTime];
-//     i = i + 1;
-//   }
-// }
